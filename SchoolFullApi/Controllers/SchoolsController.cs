@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Data;
 using Domain.Models;
-using Business;
+using Repositories;
 
 namespace Api.Controllers
 {
