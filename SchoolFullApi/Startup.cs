@@ -24,6 +24,7 @@ namespace SchoolFullApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<SchoolDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("SchoolsDatabase")));
+            services.AddTransient(typeof(ISchoolDbContext), typeof(SchoolDbContext));
             services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
         }
 

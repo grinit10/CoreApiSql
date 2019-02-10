@@ -1,4 +1,5 @@
 ﻿using Data;
+using Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class RepositoryBase<T> : IRepositoryBase<T> where T : class
+    public class RepositoryBase<T> : IRepositoryBase<T> where T : BaseModel
     {
-        protected SchoolDbContext RepositoryContext { get; set; }
+        protected ISchoolDbContext RepositoryContext { get; set; }
 
-        public RepositoryBase(SchoolDbContext repositoryContext)
+        public RepositoryBase(ISchoolDbContext repositoryContext)
         {
             RepositoryContext = repositoryContext;
         }
@@ -40,11 +41,6 @@ namespace Repositories
         public void Delete(T entity)
         {
             RepositoryContext.Set<T>().Remove(entity);
-        }
-
-        public async Task SaveAsync()
-        {
-            await RepositoryContext.SaveChangesAsync();
         }
     }
 }

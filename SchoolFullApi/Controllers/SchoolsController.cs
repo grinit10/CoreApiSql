@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Data;
 using Domain.Models;
 using Repositories;
+using BL;
 
 namespace Api.Controllers
 {
@@ -14,18 +15,18 @@ namespace Api.Controllers
     [ApiController]
     public class SchoolsController : ControllerBase
     {
-        private readonly IRepositoryBase<School> _schoolRepo;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public SchoolsController(IRepositoryBase<School> schoolRepo)
+        public SchoolsController(IUnitOfWork unitOfWork)
         {
-            _schoolRepo = schoolRepo;
+            _unitOfWork = unitOfWork;
         }
 
         // GET: api/Schools1
         [HttpGet]
         public async Task<IEnumerable<School>> GetSchoolsAsync()
         {
-            return await _schoolRepo.FindAllAsync();
+            return await _unitOfWork.schoolRepository.FindAllAsync();
         }
 
         // GET: api/Schools1/5
@@ -37,7 +38,7 @@ namespace Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var school = await _schoolRepo.FindByConditionAync(sc => sc.Id == id);
+            var school = await _unitOfWork.schoolRepository.FindByConditionAync(sc => sc.Id == id);
 
             if (school == null)
             {
@@ -63,7 +64,8 @@ namespace Api.Controllers
 
             try
             {
-                _schoolRepo.Update(school);
+                _unitOfWork.schoolRepository.Update(school);
+                _unitOfWork.Save();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -91,7 +93,8 @@ namespace Api.Controllers
 
             try
             {
-                _schoolRepo.Create(school);
+                _unitOfWork.schoolRepository.Create(school);
+                _unitOfWork.Save();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -124,7 +127,7 @@ namespace Api.Controllers
 
         private async Task<bool> SchoolExistsAsync(Guid id)
         {
-            return await _schoolRepo.FindByConditionAync(e => e.Id == id) == null? false: true;
+            return await _unitOfWork.schoolRepository.FindByConditionAync(e => e.Id == id) == null? false: true;
         }
     }
 }

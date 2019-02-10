@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace Data
 {
-    public class SchoolDbContext : DbContext
+    public class SchoolDbContext : DbContext, ISchoolDbContext
     {
         public SchoolDbContext() { }
         public SchoolDbContext(DbContextOptions<SchoolDbContext> options)
@@ -108,5 +108,8 @@ namespace Data
             }
             return base.SaveChanges();
         }
+
+        public void Dispose()
+        { }
     }
 }
