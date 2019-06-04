@@ -2,7 +2,7 @@
 
 namespace Domain
 {
-    interface IBaseModel
+    internal interface IBaseModel
     {
         Guid Id { get; set; }
         Guid CreatedBy { get; set; }

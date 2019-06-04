@@ -1,16 +1,15 @@
 ﻿using Domain;
-using Domain.Models;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-using System.Threading;
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {
     public class SchoolDbContext : DbContext, ISchoolDbContext
     {
         public SchoolDbContext() { }
-        public SchoolDbContext(DbContextOptions<SchoolDbContext> options)
+        public SchoolDbContext(DbContextOptions options)
        : base(options)
         { }
 
@@ -85,25 +84,21 @@ namespace Data
 
             foreach (var entry in modifiedEntries)
             {
-                if (entry.Entity is BaseModel entity)
+                if (!(entry.Entity is BaseModel entity)) continue;
+                var now = DateTime.UtcNow;
+
+                if (entry.State == EntityState.Added)
                 {
-                    var now = DateTime.UtcNow;
-
-                    if (entry.State == EntityState.Added)
-                    {
-                        entity.CreatedBy = Guid.NewGuid();
-                        if (entity.CreatedDate == null)
-                            entity.CreatedDate = now;
-                    }
-                    else
-                    {
-                        Entry(entity).Property(x => x.CreatedBy).IsModified = false;
-                        Entry(entity).Property(x => x.CreatedDate).IsModified = false;
-                    }
-
-                    entity.UpdatedBy = Guid.NewGuid();
-                    entity.UpdatedDate = now;
+                    entity.CreatedBy = Guid.NewGuid();
                 }
+                else
+                {
+                    Entry(entity).Property(x => x.CreatedBy).IsModified = false;
+                    Entry(entity).Property(x => x.CreatedDate).IsModified = false;
+                }
+
+                entity.UpdatedBy = Guid.NewGuid();
+                entity.UpdatedDate = now;
             }
             return base.SaveChanges();
         }

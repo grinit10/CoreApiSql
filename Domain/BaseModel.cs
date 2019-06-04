@@ -4,7 +4,7 @@ namespace Domain
 {
     public class BaseModel : IBaseModel
     {
-        public BaseModel()
+        protected BaseModel()
         {
             Id = Guid.NewGuid();
             CreatedBy = Guid.NewGuid();
