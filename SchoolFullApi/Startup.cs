@@ -26,9 +26,9 @@ namespace SchoolFullApi
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<SchoolDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("SchoolsDatabase")));
-            services.AddTransient(typeof(ISchoolDbContext), typeof(SchoolDbContext));
-            services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
-            services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
+            services.AddScoped(typeof(ISchoolDbContext), typeof(SchoolDbContext));
+            services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+            services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info {Title = "Core Api", Description = "Swagger Core Api" });

@@ -28,9 +28,10 @@ namespace Repositories
             return await RepositoryContext.Set<T>().Where(expression).ToListAsync();
         }
 
-        public void Create(T entity)
+        public T Create(T entity)
         {
             RepositoryContext.Set<T>().Add(entity);
+            return entity;
         }
 
         public void Update(T entity)

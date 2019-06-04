@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Domain.Models;
 using BL;
+using Domain.ViewModels;
 
 namespace Api.Controllers
 {
@@ -81,17 +82,17 @@ namespace Api.Controllers
 
         // POST: api/Schools1
         [HttpPost]
-        public IActionResult PostSchool([FromBody] School school)
+        public IActionResult PostSchool([FromBody] PostSchoolVm school)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            _unitOfWork.schoolRepository.Create(school);
+            var createdSchool = _unitOfWork.schoolRepository.Create(new School(){Name = school.Name});
             _unitOfWork.Save();
 
-            return CreatedAtAction("GetSchool", new { id = school.Id }, school);
+            return CreatedAtAction("GetSchool", new { id = createdSchool.Id }, school);
         }
 
         //// DELETE: api/Schools1/5

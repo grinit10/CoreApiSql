@@ -34,6 +34,6 @@ namespace BL
         public IRepositoryBase<Section> sectionRepository { get { return _sectionRepository; } }
         public IRepositoryBase<Student> studentRepository { get { return _studentRepository; } }
 
-        public void Save() => RepositoryContext.SaveChanges();
+        public void Save() => RepositoryContext.GetSaveChanges();
     }
 }

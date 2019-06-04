@@ -87,8 +87,7 @@ namespace Data
             {
                 if (entry.Entity is BaseModel entity)
                 {
-                    string identityName = Thread.CurrentPrincipal.Identity.Name;
-                    DateTime now = DateTime.UtcNow;
+                    var now = DateTime.UtcNow;
 
                     if (entry.State == EntityState.Added)
                     {
@@ -109,7 +108,7 @@ namespace Data
             return base.SaveChanges();
         }
 
-        public void Dispose()
+        public override void Dispose()
         { }
     }
 }
