@@ -36,7 +36,7 @@ namespace Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var school = await _unitOfWork.schoolRepository.FindByConditionAync(sc => sc.Id == id);
+            var school = await _unitOfWork.schoolRepository.FindByConditionAsync(sc => sc.Id == id);
 
             if (school == null)
             {
@@ -118,7 +118,7 @@ namespace Api.Controllers
 
         private async Task<bool> SchoolExistsAsync(Guid id)
         {
-            return await _unitOfWork.schoolRepository.FindByConditionAync(e => e.Id == id) == null? false: true;
+            return await _unitOfWork.schoolRepository.FindByConditionAsync(e => e.Id == id) == null? false: true;
         }
     }
 }
