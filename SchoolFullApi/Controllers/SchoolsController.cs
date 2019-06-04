@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Data;
 using Domain.Models;
-using Repositories;
 using BL;
 
 namespace Api.Controllers
@@ -91,15 +88,8 @@ namespace Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            try
-            {
-                _unitOfWork.schoolRepository.Create(school);
-                _unitOfWork.Save();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
+            _unitOfWork.schoolRepository.Create(school);
+            _unitOfWork.Save();
 
             return CreatedAtAction("GetSchool", new { id = school.Id }, school);
         }

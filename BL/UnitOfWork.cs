@@ -1,19 +1,16 @@
 ﻿using Data;
 using Domain.Models;
 using Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace BL
 {
-    class UnitOfWork: IUnitOfWork
+    public class UnitOfWork: IUnitOfWork
     {
-        private IRepositoryBase<School> _schoolRepository;
-        private IRepositoryBase<Course> _courseRepository;
-        private IRepositoryBase<Grade> _gradeRepository;
-        private IRepositoryBase<Section> _sectionRepository;
-        private IRepositoryBase<Student> _studentRepository;
+        private readonly IRepositoryBase<School> _schoolRepository;
+        private readonly IRepositoryBase<Course> _courseRepository;
+        private readonly IRepositoryBase<Grade> _gradeRepository;
+        private readonly IRepositoryBase<Section> _sectionRepository;
+        private readonly IRepositoryBase<Student> _studentRepository;
         private ISchoolDbContext RepositoryContext { get; set; }
 
         public UnitOfWork(IRepositoryBase<School> schoolRepository,

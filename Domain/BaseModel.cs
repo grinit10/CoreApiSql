@@ -7,6 +7,8 @@ namespace Domain
         public BaseModel()
         {
             Id = Guid.NewGuid();
+            CreatedBy = Guid.NewGuid();
+            CreatedDate = DateTime.Now;
         }
         public Guid Id { get; set; }
         public Guid CreatedBy { get; set; }

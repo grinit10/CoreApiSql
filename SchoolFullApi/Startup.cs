@@ -1,4 +1,5 @@
-﻿using Repositories;
+﻿using BL;
+using Repositories;
 using Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,7 @@ namespace SchoolFullApi
             options.UseSqlServer(Configuration.GetConnectionString("SchoolsDatabase")));
             services.AddTransient(typeof(ISchoolDbContext), typeof(SchoolDbContext));
             services.AddTransient(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
+            services.AddTransient(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info {Title = "Core Api", Description = "Swagger Core Api" });
