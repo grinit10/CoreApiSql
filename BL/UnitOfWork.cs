@@ -14,7 +14,7 @@ namespace BL
         private IRepositoryBase<Grade> _gradeRepository;
         private IRepositoryBase<Section> _sectionRepository;
         private IRepositoryBase<Student> _studentRepository;
-        protected ISchoolDbContext RepositoryContext { get; set; }
+        private ISchoolDbContext RepositoryContext { get; set; }
 
         public UnitOfWork(IRepositoryBase<School> schoolRepository,
                           IRepositoryBase<Course> courseRepository,

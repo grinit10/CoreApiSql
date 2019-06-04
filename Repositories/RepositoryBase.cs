@@ -11,7 +11,7 @@ namespace Repositories
 {
     public class RepositoryBase<T> : IRepositoryBase<T> where T : BaseModel
     {
-        protected ISchoolDbContext RepositoryContext { get; set; }
+        private ISchoolDbContext RepositoryContext { get; set; }
 
         public RepositoryBase(ISchoolDbContext repositoryContext)
         {
