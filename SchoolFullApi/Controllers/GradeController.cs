@@ -64,35 +64,37 @@ namespace Api.Controllers
         }
 
         //Put : /api/PutGrade
-        //    [HttpPut("{id}")]
-        //    public IActionResult PutGrade([FromRoute] Guid id, [FromBody] Grade grade)
-        //    {
-        //        if (!ModelState.IsValid)
-        //            return BadRequest(ModelState);
+        [HttpPut("{id}")]
+        public IActionResult PutGrade([FromRoute] Guid id, [FromBody] Grade grade)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-        //        if (id != grade.Id)
-        //            return BadRequest();
+            if (id != grade.Id)
+                return BadRequest();
 
-        //        try
-        //        {
-        //            _unitOfWork.gradeRepository.Update(grade);
-        //            _unitOfWork.Save();
-        //        }
-        //        catch(DbUpdateConcurrencyException)
-        //        {
-        //            if (!GradeExist(grade.Id))
-        //                return NotFound();
+            try
+            {
+                _unitOfWork.gradeRepository.Update(grade);
+                _unitOfWork.Save();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!GradeExist(grade.Id))
+                    return NotFound();
 
-        //            throw;
-        //        }
+                throw;
+            }
 
-        //        return NoContent();
-        //    }
+            return NoContent();
+        }
 
-        //    public  bool GradeExist(Guid id)
-        //    {
-        //      return  _unitOfWork.gradeRepository.FindByConditionAsync(c => c.Id == id) == null ? false : true;
-        //    }
+
+        [NonAction]
+        private bool GradeExist(Guid id)
+        {
+            return _unitOfWork.gradeRepository.FindByConditionAsync(c => c.Id == id) == null ? false : true;
+        }
 
     }
 
