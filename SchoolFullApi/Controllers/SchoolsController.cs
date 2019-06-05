@@ -20,14 +20,14 @@ namespace Api.Controllers
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Schools1
+        // GET: api/Schools
         [HttpGet]
         public async Task<IEnumerable<School>> GetSchoolsAsync()
         {
             return await _unitOfWork.schoolRepository.FindAllAsync();
         }
 
-        // GET: api/Schools1/5
+        // GET: api/Schools/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSchool([FromRoute] Guid id)
         {
