@@ -95,7 +95,7 @@ namespace Api.Controllers
             return CreatedAtAction("GetSchool", new { id = createdSchool.Id }, school);
         }
 
-        //// DELETE: api/Schools1/5
+        // DELETE: api/Schools1/5
         //[HttpDelete("{id}")]
         //public async Task<IActionResult> DeleteSchool([FromRoute] Guid id)
         //{
@@ -104,7 +104,7 @@ namespace Api.Controllers
         //        return BadRequest(ModelState);
         //    }
 
-        //    var school = await _context.Schools.FindAsync(id);
+        //    School school = await _unitOfWork.schoolRepository.FindByConditionAsync(c => c.Id == id);
         //    if (school == null)
         //    {
         //        return NotFound();
@@ -116,6 +116,7 @@ namespace Api.Controllers
         //    return Ok(school);
         //}
 
+        [NonAction]
         private async Task<bool> SchoolExistsAsync(Guid id)
         {
             return await _unitOfWork.schoolRepository.FindByConditionAsync(e => e.Id == id) == null? false: true;
