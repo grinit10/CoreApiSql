@@ -92,5 +92,25 @@ namespace Api.Controllers
 
             return NoContent();
         }
+
+        //Delete : /api/DeleteSection/1
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSection([FromRoute] Guid id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var sectionList = await _unitOfWork.sectionRepository.FindByConditionAsync(c => c.Id == id);
+
+            if (sectionList == null)
+                return NotFound();
+
+            Section section = sectionList.ToList().FirstOrDefault();
+
+            _unitOfWork.sectionRepository.Delete(section);
+            _unitOfWork.Save();
+
+            return Ok();
+        }
     }
 }
