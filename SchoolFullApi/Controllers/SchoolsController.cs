@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -95,26 +96,28 @@ namespace Api.Controllers
             return CreatedAtAction("GetSchool", new { id = createdSchool.Id }, school);
         }
 
-        // DELETE: api/Schools1/5
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> DeleteSchool([FromRoute] Guid id)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
-        //    }
+        // DELETE: api/Schools/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSchool([FromRoute] Guid id )
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-        //    School school = await _unitOfWork.schoolRepository.FindByConditionAsync(c => c.Id == id);
-        //    if (school == null)
-        //    {
-        //        return NotFound();
-        //    }
+            
+            var schoolx = await _unitOfWork.schoolRepository.FindByConditionAsync(c => c.Id == id);
+            School sch = schoolx.ToList().FirstOrDefault();
 
-        //    _context.Schools.Remove(school);
-        //    await _context.SaveChangesAsync();
+            if (sch == null)
+            {
+                return NotFound();
+            }
+            _unitOfWork.schoolRepository.Delete(sch);
+           _unitOfWork.Save();
 
-        //    return Ok(school);
-        //}
+            return Ok();
+        }
 
         [NonAction]
         private async Task<bool> SchoolExistsAsync(Guid id)

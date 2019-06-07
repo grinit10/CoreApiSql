@@ -90,6 +90,26 @@ namespace Api.Controllers
         }
 
 
+        //Delete : /api/Grade/1
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteGrade([FromRoute] Guid id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var gradeList = await _unitOfWork.gradeRepository.FindByConditionAsync(c => c.Id == id);
+
+            if (gradeList == null)
+                return NotFound();
+
+            Grade grade = gradeList.ToList().FirstOrDefault();
+
+            _unitOfWork.gradeRepository.Delete(grade);
+            _unitOfWork.Save();
+
+            return Ok();
+        }
+
         [NonAction]
         private bool GradeExist(Guid id)
         {
