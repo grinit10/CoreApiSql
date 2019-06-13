@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Domain.Models
 {
-    public class CourseStudent
+    public class CourseStudent : BaseModel
     {
         public Guid CourseId { get; set; }
         public Course Course { get; set; }

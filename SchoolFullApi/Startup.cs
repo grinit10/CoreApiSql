@@ -26,7 +26,8 @@ namespace Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddDbContext<SchoolDbContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("SchoolsDatabase")));
+                options.UseSqlServer(Configuration.GetConnectionString("SchoolsDatabase")),
+                ServiceLifetime.Transient);
             services.AddScoped(typeof(ISchoolDbContext), typeof(SchoolDbContext));
             services.AddScoped(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));

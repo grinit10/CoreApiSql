@@ -26,7 +26,9 @@ namespace Repositories
 
         public async Task<IEnumerable<T>> FindByConditionAsync(Expression<Func<T, bool>> expression)
         {
-            return await RepositoryContext.Set<T>().Where(expression).ToListAsync();
+            var query = RepositoryContext.Set<T>().Where(expression);
+            typeof(T).GetProperties().ToList().ForEach(p => query.Include(p.Name));
+            return await query.ToListAsync();
         }
 
         public T Create(T entity)
