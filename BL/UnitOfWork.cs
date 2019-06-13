@@ -13,6 +13,7 @@ namespace BL
                           IRepositoryBase<Grade> gradeRepository,
                           IRepositoryBase<Section> sectionRepository,
                           IRepositoryBase<Student> studentRepository,
+                          IRepositoryBase<CourseStudent> courseStudentRepository,
                           ISchoolDbContext repositoryContext)
         {
             this.schoolRepository = schoolRepository;
@@ -20,6 +21,7 @@ namespace BL
             this.gradeRepository = gradeRepository;
             this.sectionRepository = sectionRepository;
             this.studentRepository = studentRepository;
+            this.courseStudentRepository = courseStudentRepository;
             RepositoryContext = repositoryContext;
         }
 
@@ -28,6 +30,7 @@ namespace BL
         public IRepositoryBase<Grade> gradeRepository { get; }
         public IRepositoryBase<Section> sectionRepository { get; }
         public IRepositoryBase<Student> studentRepository { get; }
+        public IRepositoryBase<CourseStudent> courseStudentRepository { get; }
 
         public void Save() => RepositoryContext.GetSaveChanges();
     }

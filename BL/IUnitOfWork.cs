@@ -13,6 +13,7 @@ namespace BL
         IRepositoryBase<Grade> gradeRepository { get; }
         IRepositoryBase<Section> sectionRepository { get; }
         IRepositoryBase<Student> studentRepository { get; }
+        IRepositoryBase<CourseStudent> courseStudentRepository { get; }
         void Save();
     }
 }
