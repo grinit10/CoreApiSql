@@ -104,8 +104,10 @@ namespace Api.Controllers
         {
             var std = _unitOfWork.studentRepository.
                 FindByConditionAsync(s => s.Id == id).Result.FirstOrDefault();
+
             if ((std == null) || !ModelState.IsValid)
                 return BadRequest(ModelState);
+
             stdCourses.CourseIds.ForEach(cid =>
                 _unitOfWork.courseStudentRepository.Create(
                     new CourseStudent()

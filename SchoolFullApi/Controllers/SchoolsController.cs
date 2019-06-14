@@ -83,14 +83,14 @@ namespace Api.Controllers
 
         // POST: api/Schools1
         [HttpPost]
-        public IActionResult PostSchool([FromBody] PostSchoolVm school)
+        public IActionResult PostSchool([FromBody] string school)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var createdSchool = _unitOfWork.schoolRepository.Create(new School(){Name = school.Name});
+            var createdSchool = _unitOfWork.schoolRepository.Create(new School(){Name = school});
             _unitOfWork.Save();
 
             return CreatedAtAction("GetSchool", new { id = createdSchool.Id }, school);
