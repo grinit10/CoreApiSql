@@ -42,27 +42,23 @@ namespace Api.Controllers
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-            var std = new Student
+
+         var student = _unitOfWork.studentRepository.Create(new Student
             {
                 FirstName = studnt.FirstName,
                 LastName = studnt.LastName,
                 SectionId = studnt.SectionId
-            };
-
-            _unitOfWork.studentRepository.Create(std);
+            });
             _unitOfWork.Save();
 
-            return CreatedAtAction("GetStudentById", new {id = std.Id}, std);
+            return CreatedAtAction("GetStudentById", new {id = student.Id}, std);
         }
 
         [HttpPut("{id}")]
         public IActionResult UpdateStudent([FromRoute] Guid id, [FromBody] Student student)
         {
-            if (id != student.Id)
+            if (id != student.Id || !ModelState.IsValid)
                 return BadRequest(ModelState);
-
-            if (!ModelState.IsValid)
-                return BadRequest();
 
             try
             {
