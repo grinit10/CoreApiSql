@@ -43,7 +43,7 @@ namespace Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-         var student = _unitOfWork.studentRepository.Create(new Student
+            var student = _unitOfWork.studentRepository.Create(new Student
             {
                 FirstName = studnt.FirstName,
                 LastName = studnt.LastName,
@@ -51,7 +51,7 @@ namespace Api.Controllers
             });
             _unitOfWork.Save();
 
-            return CreatedAtAction("GetStudentById", new {id = student.Id}, std);
+            return CreatedAtAction("GetStudentById", new {id = student.Id});
         }
 
         [HttpPut("{id}")]

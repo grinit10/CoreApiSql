@@ -84,7 +84,7 @@ namespace LambdaApi.Controllers
 
         // POST: api/Schools1
         [HttpPost]
-        public IActionResult PostSchool([FromBody] string school)
+        public IActionResult PostSchool([FromForm]string school)
         {
             if (!ModelState.IsValid)
             {
