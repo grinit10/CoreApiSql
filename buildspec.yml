@@ -9,7 +9,7 @@ phases:
     commands:
       - dotnet publish -c release -o ./build_output LambdaApi/LambdaApi.csproj
       - dotnet publish -c release -o ./test_output UT/UT.csproj
-      - dotnet vstest UT/UT.dll
+      - dotnet vstest UT/bin/Release/netcoreapp2.1/UT.dll
   post_build:
     commands:
       # Do not remove this statement. This command is required for AWS CodeStar projects.
