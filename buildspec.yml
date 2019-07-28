@@ -3,13 +3,13 @@ phases:
 pre_build:
 commands:
 - pip install --upgrade awscli
-- dotnet restore AspNetCoreWebApplication/AspNetCoreWebApplication.csproj
-- dotnet restore AspNetCoreWebApplicationTest/AspNetCoreWebApplicationTest.csproj
+- dotnet restore LambdaApi/LambdaApi.csproj
+- dotnet restore LambdaApi.Tests/LambdaApi.Tests.csproj
 build:
 commands:
-- dotnet publish -c release -o ./build_output AspNetCoreWebApplication/AspNetCoreWebApplication.csproj
-- dotnet publish -c release -o ./test_output AspNetCoreWebApplicationTest/AspNetCoreWebApplicationTest.csproj
-- dotnet vstest AspNetCoreWebApplicationTest/test_output/AspNetCoreWebApplicationTest.dll
+- dotnet publish -c release -o ./build_output LambdaApi/LambdaApi.csproj
+- dotnet publish -c release -o ./test_output LambdaApi.Tests/LambdaApi.Tests.csproj
+- dotnet vstest LambdaApi.Tests/test_output/LambdaApi.Tests.dll
 post_build:
 commands:
 
