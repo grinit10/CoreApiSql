@@ -4,12 +4,12 @@ phases:
     commands:
       - pip install --upgrade awscli
       - dotnet restore LambdaApi/LambdaApi.csproj
-      - dotnet restore LambdaApi.Tests/LambdaApi.Tests.csproj
+      - dotnet restore UT/UT.csproj
   build:
     commands:
       - dotnet publish -c release -o ./build_output LambdaApi/LambdaApi.csproj
-      - dotnet publish -c release -o ./test_output LambdaApi.Tests/LambdaApi.Tests.csproj
-      - dotnet vstest LambdaApi.Tests/test_output/LambdaApi.Tests.dll
+      - dotnet publish -c release -o ./test_output UT/UT.csproj
+      - dotnet vstest UT/UT.csproj
   post_build:
     commands:
       # Do not remove this statement. This command is required for AWS CodeStar projects.
@@ -18,7 +18,7 @@ phases:
 artifacts:
   files:
     - template.yml
-    - AspNetCoreWebApplication/build_output/**/*
+    - CoreSqlApi/build_output/**/*
     - scripts/**/*
     - appspec.yml
     - template-configuration.json
