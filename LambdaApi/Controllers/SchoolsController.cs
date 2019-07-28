@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using BL;
 using Domain.Models;
-using Domain.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
