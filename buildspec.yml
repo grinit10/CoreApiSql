@@ -18,4 +18,3 @@ phases:
 artifacts:
   files:
     - CoreSqlApi/build_output/**/*
-    - scripts/**/*
