@@ -20,6 +20,13 @@ namespace LambdaApi.Controllers
             _unitOfWork = unitOfWork;
         }
 
+
+        [HttpGet]
+        [Route("health-check")]
+        public IActionResult HealthCheckTask()
+        {
+            return Ok();
+        }
         // GET: api/Schools
         [HttpGet]
         public async Task<IEnumerable<School>> GetSchoolsAsync()
