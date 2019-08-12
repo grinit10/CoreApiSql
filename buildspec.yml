@@ -2,7 +2,7 @@
 phases:
   install:
     commands:
-      - aws cloudformation package --template-file LambdaApi/serverless.template --s3-bucket coreapisqlcodebuildbucket --output-template-file outputSamTemplate.yaml
+      #- aws cloudformation package --template-file LambdaApi/serverless.template --s3-bucket coreapisqlcodebuildbucket --output-template-file outputSamTemplate.yaml
   pre_build:
     commands:
       - pip install --upgrade awscli
@@ -10,6 +10,7 @@ phases:
       - dotnet restore UT/UT.csproj
   build:
     commands:
+      - aws cloudformation package --template-file LambdaApi/serverless.template --s3-bucket coreapisqlcodebuildbucket --output-template-file outputSamTemplate.yaml
       - dotnet publish -c release -o ./build_output LambdaApi/LambdaApi.csproj
       - dotnet publish -c release -o ./test_output UT/UT.csproj
       - dotnet vstest UT/bin/Release/netcoreapp2.1/UT.dll

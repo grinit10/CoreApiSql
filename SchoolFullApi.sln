@@ -24,6 +24,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3BC6E9E6-6EDD-409F-941E-B15EBE163287}"
 	ProjectSection(SolutionItems) = preProject
 		buildspec.yml = buildspec.yml
+		template.yml = template.yml
 	EndProjectSection
 EndProject
 Global
