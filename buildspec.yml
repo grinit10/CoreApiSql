@@ -3,18 +3,18 @@ phases:
   install:
     commands:
       #- aws cloudformation package --template-file LambdaApi/serverless.template --s3-bucket coreapisqlcodebuildbucket --output-template-file outputSamTemplate.yaml
-  pre_build:
-    commands:
       - pip install --upgrade awscli
       - dotnet restore LambdaApi/LambdaApi.csproj
       - dotnet restore UT/UT.csproj
+  pre_build:
+    
   build:
     commands:
+      - dotnet build LambdaApi/LambdaApi.csproj
       - aws cloudformation package --template-file LambdaApi/serverless.template --s3-bucket coreapisqlcodebuildbucket --output-template-file outputSamTemplate.yaml
       
   post_build:
     commands:
-      - dotnet build LambdaApi/LambdaApi.csproj
       - dotnet publish -c release -o ./test_output UT/UT.csproj
       - dotnet vstest UT/bin/Release/netcoreapp2.1/UT.dll
       # Do not remove this statement. This command is required for AWS CodeStar projects.
