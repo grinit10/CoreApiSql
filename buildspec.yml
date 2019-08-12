@@ -7,10 +7,12 @@ phases:
       - dotnet restore LambdaApi/LambdaApi.csproj
       - dotnet restore UT/UT.csproj
   pre_build:
-    
+    commands:
+      #- aws cloudformation package --template-file LambdaApi/serverless.template --s3-bucket coreapisqlcodebuildbucket --output-template-file outputSamTemplate.yaml
+      - dotnet build LambdaApi/LambdaApi.csproj
+      
   build:
     commands:
-      - dotnet build LambdaApi/LambdaApi.csproj
       - aws cloudformation package --template-file LambdaApi/serverless.template --s3-bucket coreapisqlcodebuildbucket --output-template-file outputSamTemplate.yaml
       
   post_build:
