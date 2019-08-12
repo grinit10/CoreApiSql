@@ -11,11 +11,12 @@ phases:
   build:
     commands:
       - aws cloudformation package --template-file LambdaApi/serverless.template --s3-bucket coreapisqlcodebuildbucket --output-template-file outputSamTemplate.yaml
-      - dotnet publish -c release -o ./build_output LambdaApi/LambdaApi.csproj
-      - dotnet publish -c release -o ./test_output UT/UT.csproj
-      - dotnet vstest UT/bin/Release/netcoreapp2.1/UT.dll
+      
   post_build:
     commands:
+      - dotnet build LambdaApi/LambdaApi.csproj
+      - dotnet publish -c release -o ./test_output UT/UT.csproj
+      - dotnet vstest UT/bin/Release/netcoreapp2.1/UT.dll
       # Do not remove this statement. This command is required for AWS CodeStar projects.
       # Update the AWS Partition, AWS Region, account ID and project ID in the project ARN in template-configuration.json file so AWS CloudFormation can tag project resources.
       #- sed -i.bak 's/\$PARTITION\$/'${PARTITION}'/g;s/\$AWS_REGION\$/'${AWS_REGION}'/g;s/\$ACCOUNT_ID\$/'${ACCOUNT_ID}'/g;s/\$PROJECT_ID\$/'${PROJECT_ID}'/g' template-configuration.json
